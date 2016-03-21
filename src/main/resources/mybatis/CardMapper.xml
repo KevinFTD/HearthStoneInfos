@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.CardMapper">
+
+    <resultMap id="CardResultMap" type="Card">
+        <id property="id" column="card_id" />
+
+        <result property="chName" column="ch_name"/>
+        <result property="enName" column="en_name"/>
+        <result property="occupation" column="occupation"/>
+        <result property="rarity" column="rarity"/>
+        <result property="type" column="type"/>
+        <result property="manaCost" column="mana_cost"/>
+        <result property="health" column="health"/>
+        <result property="attack" column="attack"/>
+        <result property="special" column="special"/>
+        <result property="desc" column="description"/>
+    </resultMap>
+
+
+    <insert id="insertCard" parameterType="Card" useGeneratedKeys="true" keyColumn="id">
+        insert into cards(ch_name, en_name, occupation, rarity, type, mana_cost, health, attack, special, description)
+        values(#{chName}, #{enName}, #{occupation}, #{rarity}, #{type}, #{manaCost}, #{health},
+          #{attack}, #{special}, #{desc})
+    </insert>
+
+
+    <select id="findByName" parameterType="string" resultMap="CardResultMap">
+        select * from cards where ch_name = #{name} or en_name = #{name}
+    </select>
+
+
+</mapper>
